@@ -3,8 +3,16 @@ version: 1.0.0
 
 configmaps:
   1.0.0:
-    - 0-commons.properties
-    - 1-commons-wrapper-encrypted.properties
+    0-commons.properties: |- 
+      asincrono.appender.activo=false
+      asincrono.appender.locationinfo=false
+      asincrono.appender.tamanyo.buffer=2048
+    1-commons-wrapper-encrypted.properties: |- 
+      cfg.ei.servicing.connector.rest.kernel.default.auth.privatekey.password=123456
   1.0.1:
-    - 0-commons.properties
-    - 1-commons-wrapper-encrypted.properties
+    0-commons.properties: |- 
+      asincrono.appender.activo=true
+      asincrono.appender.locationinfo=true
+      asincrono.appender.tamanyo.buffer=1024
+    1-commons-wrapper-encrypted.properties: |- 
+      cfg.ei.servicing.connector.rest.kernel.default.auth.privatekey.password=abcd
