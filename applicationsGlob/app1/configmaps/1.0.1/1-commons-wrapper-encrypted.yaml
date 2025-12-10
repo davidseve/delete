@@ -1,0 +1,5 @@
+configmaps:
+  1.0.1:
+    1-commons-wrapper-encrypted.properties: |-
+      cfg.ei.servicing.connector.rest.kernel.default.auth.privatekey.password=abcd
+

@@ -1,0 +1,7 @@
+configmaps:
+  1.0.1:
+    0-commons.properties: |-
+      asincrono.appender.activo=true
+      asincrono.appender.locationinfo=true
+      asincrono.appender.tamanyo.buffer=1024
+

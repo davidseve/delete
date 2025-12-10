@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps-configmaps-values
+  name: apps-configmaps-glob
   namespace: openshift-gitops
 spec:
   goTemplate: true
@@ -11,10 +11,10 @@ spec:
         repoURL: https://github.com/davidseve/delete.git # Cambia por tu repositorio
         revision: HEAD
         directories:
-          - path: applications/*
+          - path: applicationsGlob/*
   template:
     metadata:
-      name: '{{ .path.basename }}-values'
+      name: '{{ .path.basename }}-glob'
     spec:
       project: default
       sources:
@@ -25,6 +25,7 @@ spec:
           helm:
             valueFiles:
               - $values/{{ .path.path }}/values.yaml
+              - $values/{{ .path.path }}/configmaps/**/*.yaml
         # Source 2: Referencia para los values
         - repoURL: https://github.com/davidseve/delete.git  # Cambia por tu repositorio
           targetRevision: HEAD
@@ -36,5 +37,4 @@ spec:
         automated:
           prune: true
           selfHeal: true
-
 
