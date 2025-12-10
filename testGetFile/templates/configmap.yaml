@@ -1,0 +1,17 @@
+{{- $name := .Values.name }}
+{{- $version := .Values.version }}
+{{- $configmaps := index .Values.configmaps $version }}
+{{- range $configmapName := $configmaps }}
+{{- $filePath := printf "files/%s/%s/%s" $name $version $configmapName }}
+{{- $configmapData := $.Files.Get $filePath }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $name }}-{{ $configmapName }}
+  labels:
+    {{- include "test.labels" $ | nindent 4 }}
+data:
+  {{ $configmapName }}: |
+{{ $configmapData | indent 4 }}
+{{- end }}

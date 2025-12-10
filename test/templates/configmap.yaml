@@ -1,0 +1,15 @@
+{{- $version := .Values.version }}
+{{- $configmaps := index .Values.configmaps $version }}
+{{- range $configmapName, $configmapData := $configmaps }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "test.fullname" $ }}-{{ $configmapName }}
+  labels:
+    {{- include "test.labels" $ | nindent 4 }}
+data:
+{{ $configmapName | indent 2 }}: |-
+{{ $configmapData | indent 4 }}
+
+{{- end }}

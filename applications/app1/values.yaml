@@ -1,0 +1,10 @@
+name: app1
+version: 1.0.0
+
+configmaps:
+  1.0.0:
+    - 0-commons.properties
+    - 1-commons-wrapper-encrypted.properties
+  1.0.1:
+    - 0-commons.properties
+    - 1-commons-wrapper-encrypted.properties

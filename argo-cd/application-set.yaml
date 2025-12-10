@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-configmaps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/tu-org/tu-repo.git  # Cambia por tu repositorio
+        revision: HEAD
+        directories:
+          - path: test/applications/*
+  template:
+    metadata:
+      name: '{{ .path.basename }}'
+    spec:
+      project: default
+      sources:
+        # Source 1: El chart compartido
+        - repoURL: https://github.com/tu-org/tu-repo.git  # Cambia por tu repositorio
+          targetRevision: HEAD
+          path: test/testGetFile
+          helm:
+            valueFiles:
+              - $values/{{ .path.path }}/values.yaml
+        # Source 2: Referencia para los values
+        - repoURL: https://github.com/tu-org/tu-repo.git  # Cambia por tu repositorio
+          targetRevision: HEAD
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .path.basename }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
