@@ -18,15 +18,13 @@ spec:
     spec:
       project: default
       sources:
-        # Source 1: El chart compartido
-        - repoURL: https://github.com/davidseve/delete.git  # Cambia por tu repositorio
+        - repoURL: https://github.com/davidseve/delete.git 
           targetRevision: HEAD
           path: test
           helm:
             valueFiles:
               - $values/{{ .path.path }}/values.yaml
-        # Source 2: Referencia para los values
-        - repoURL: https://github.com/davidseve/delete.git  # Cambia por tu repositorio
+        - repoURL: https://github.com/davidseve/delete.git 
           targetRevision: HEAD
           ref: values
       destination:
